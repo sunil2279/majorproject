@@ -72,10 +72,9 @@ async function main() {
     mongoose.connect(dbUrl);
 };
 
-// app.get("/",(req,res) => {
-//     res.send("Hi i'm groot");
-// });
-
+app.get("/", (req, res) => {
+    res.redirect("/listings");
+});
 app.use((req,res,next) => {
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
@@ -96,7 +95,6 @@ app.all("/*path",(req ,res ,next ) => {
 app.use((err,req,res,next) => {
     let{status=500 , message="something went wrong !" } = err;
     res.status(status).render("error.ejs" ,{ message });
-    // res.status(status).send(message);
 });
 
 app.listen(8080, () => {
